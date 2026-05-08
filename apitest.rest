@@ -1,0 +1,35 @@
+@url=http://localhost:4503
+
+GET {{url}}/test
+
+###GET
+GET {{url}}/products
+
+###POST
+POST {{url}}/products
+Content-Type: application/json
+
+{
+  "title": "New Product",
+  "description": "A great new product",
+  "storeprice": 19.99,
+  "retailprice": 29.99,
+  "occasion": "Birthday",
+  "is_online": true
+}
+
+###PUT
+PUT {{url}}/products/31
+Content-Type: application/json
+
+{
+  "title": "Updated Product Test 2",
+  "description": "An updated product description",
+  "storeprice": 17.99,
+  "retailprice": 27.99,
+  "occasion": "Anniversary",
+  "is_online": false
+}
+
+###DELETE
+DELETE {{url}}/products/31
