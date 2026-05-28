@@ -1,6 +1,7 @@
 import express from "express";
 import mysql from "mysql2";
 import cors from "cors"; 
+import "dotenv/config";
 
 const server = new express();
 
@@ -8,7 +9,7 @@ server.use(express.json());
 server.use(cors());
 
 
-const port = 4503;
+const port = process.env.nodeport;
 server.listen(port, () => {
     console.log("ITS ALIVEEE!!", "#", port)
 });
@@ -20,11 +21,11 @@ server.get('/test',(req, res) => {
 //Database Connection Setup//
 const db = mysql.createPool(
     {
-        host: "localhost",
-        port: 3306,
-        user: 'root',
-        password: 'root',
-        database: 'miraclesdb'
+        host: process.env.dbhost,
+        port: process.env.dbport,
+        user: process.env.dbuser,
+        password: process.env.dbpassword,
+        database: process.env.dbdatabase
     }
 );
 db.getConnection((error) => {
