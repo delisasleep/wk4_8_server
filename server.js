@@ -86,7 +86,7 @@ server.get('/products', (req, res) => {
             StorePrice as ProductPrice, 
             RetailPrice, 
             ProductImage, 
-            Occasion 
+            Occasion as ProductOccasion
         FROM products 
         WHERE is_online = 1
     `;
