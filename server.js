@@ -77,13 +77,26 @@ db.query(query, [productID], (error, data) => {
 
 // GET/READ - Client Side: Only displays products that are active/online //
 server.get('/products', (req, res) => {
-    let sqlQuery = 'SELECT * FROM products WHERE is_online = 1';
+    //  Changed 'SELECT *' to explicit columns with 'AS' aliases to match your Angular frontend
+    let sqlQuery = `
+        SELECT 
+            ID as ProductID, 
+            Title as ProductTitle, 
+            Description as ProductDesc, 
+            StorePrice as ProductPrice, 
+            RetailPrice, 
+            ProductImage, 
+            Occasion 
+        FROM products 
+        WHERE is_online = 1
+    `;
+    
     db.query(sqlQuery, (error, data) => {
         if(error){
-            res.json(error);
+            return res.status(500).json(error);
         }
         if(data){
-            res.json(data);
+            return res.json(data);
         }
     })
 })
