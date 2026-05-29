@@ -59,7 +59,8 @@ let query = `SELECT
       Description as ProductDesc, 
       StorePrice as ProductPrice, 
       RetailPrice, 
-      ProductImage 
+      ProductImage, 
+      Occasion 
     FROM products 
     WHERE id = ?
   `;
