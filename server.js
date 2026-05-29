@@ -53,7 +53,7 @@ db.query(sqlQuery, (error, data) => {
 })
 
 server.get('/products/:id', (req,res) => {
-let query = "SELECT id, ProductTitle, ProductDesc, ProductPrice, RetailPrice, ProductImage FROM products WHERE id = ?"
+let query = "SELECT ProductID, Title, Description, StorePrice, RetailPrice, ProductImage FROM products WHERE id = ?"
 let productID = req.params.id;
 db.query(query, [productID], (error, data) => {
     if(error){
