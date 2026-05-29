@@ -39,7 +39,7 @@ PATCH {{url}}/products/3/status
 Content-Type: application/json
 
 {
-    "is_online": 0
+    "is_online": 9
 }
 
 ###DELETE
