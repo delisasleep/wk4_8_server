@@ -2,7 +2,10 @@
 
 GET {{url}}/test
 
-###GET
+###GET-Admin
+GET {{url}}/admin/products
+
+###GET-Online Products
 GET {{url}}/products
 
 ###POST
@@ -29,6 +32,14 @@ Content-Type: application/json
   "retailprice": 27.99,
   "occasion": "Anniversary",
   "is_online": false
+}
+
+### PATCH - Toggle Product Online Status (Admin Side)
+PATCH {{url}}/products/3/status
+Content-Type: application/json
+
+{
+    "is_online": 0
 }
 
 ###DELETE

@@ -40,7 +40,7 @@ db.getConnection((error) => {
 
 //Miracles CRUD Operations//
 // GET/READ- For displaying products on the client AND admin side//
-server.get('/products', (req,res) => {
+server.get('/admin/products', (req,res) => {
 let sqlQuery = 'CALL GetAllProducts()';
 db.query(sqlQuery, (error, data) => {
     if(error){
@@ -50,6 +50,32 @@ db.query(sqlQuery, (error, data) => {
         res.json(data[0]);
     }
 })
+})
+
+server.get('/products/:id', (req,res) => {
+let query = "SELECT id, ProductTitle, ProductDesc, ProductPrice, RetailPrice, ProductImage FROM products WHERE id = ?"
+let productID = req.params.id;
+db.query(query, [productID], (error, data) => {
+    if(error){
+        res.json(error);
+    }
+    if(data){
+        res.json(data[0]);
+    }
+})
+})
+
+// GET/READ - Client Side: Only displays products that are active/online //
+server.get('/products', (req, res) => {
+    let sqlQuery = 'SELECT * FROM products WHERE is_online = 1';
+    db.query(sqlQuery, (error, data) => {
+        if(error){
+            res.json(error);
+        }
+        if(data){
+            res.json(data);
+        }
+    })
 })
 
 //POST/CREATE- For adding new products to the database//
@@ -93,6 +119,21 @@ server.put("/products/:id", function(req, res) {
         }
     });
 });
+
+server.patch('/products/:id/status', (req, res) => {
+    let sqlQuery = 'UPDATE products SET is_online = ? WHERE id = ?';
+    let productID = req.params.id;
+    let prodStatus = req.body.is_online;
+
+    db.query(sqlQuery, [prodStatus, productID], (error, data) => {
+        if(error){
+            res.json(error);
+        }
+        if(data){
+            res.json({ success: true, message: "Product visibility updated successfully!" });
+        }
+    })
+})
 
 // DELETE- For deleting products from the database//
 // DELETE
